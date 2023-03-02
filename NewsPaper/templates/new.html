@@ -1,0 +1,14 @@
+{% extends 'flatpages/default.html' %}
+
+{% block title %}
+New
+{% endblock %}
+
+{% block content %}
+
+<h1>{{new.heading | censor}}</h1>
+<h3>{{new.timeCreate | date:'d M Y H:m' }}</h3>
+<br>
+<p>{{new.textArticle | censor}}</p>
+
+{% endblock %}

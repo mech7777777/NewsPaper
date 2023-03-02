@@ -1,0 +1,21 @@
+{% extends 'flatpages/default.html' %}
+{% load censor %}
+
+{%block title%}
+Post
+{%endblock%}
+
+{%block content%}
+{% if news %}
+<h1> Количество новостей: {{news|length}}
+{% for new in news  %}    
+<h2> {{new.heading | censor}}</h2>
+<h4> {{new.timeCreate}}</h4>
+<br>
+<p>{{new.textArticle | truncatewords:50 | censor }}</p>
+{% endfor %}
+
+{% endif %}
+{%endblock content%}
+
+
