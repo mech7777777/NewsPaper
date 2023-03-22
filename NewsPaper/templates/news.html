@@ -6,6 +6,8 @@ Post
 {%endblock%}
 
 {%block content%}
+
+
 {% if news %}
 <h1> Количество новостей: {{news|length}}
 {% for new in news  %}    
@@ -14,8 +16,28 @@ Post
 <br>
 <p>{{new.textArticle | truncatewords:50 | censor }}</p>
 {% endfor %}
-
 {% endif %}
+
+{% if is_paginated %}
+
+    {% if page_obj.has_previous %}
+     <a href="?page=1">Начало</a> 
+     <a href="?page={{ page_obj.previous_page_number }}">	&#60;&#60;&#60;</a>
+    {% endif %}
+
+    {% for num in page_obj.paginator.page_range %}
+    {% if page_obj.number == num %}
+        <a>{{ num }}</a>
+    {% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %}
+        <a href="?page={{ num }}">{{ num }}</a>
+    {% endif %}
+    {% endfor %}
+    {% if page_obj.has_next %}
+     <a href="?page={{ page_obj.next_page_number }}">&#62; &#62; &#62;</a>
+     <a href="?page={{ page_obj.paginator.num_pages }}">Конец</a>
+    {% endif %}
+
+{% endif%}
 {%endblock content%}
 
 

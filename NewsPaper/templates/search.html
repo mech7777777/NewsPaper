@@ -1,0 +1,48 @@
+{% extends 'flatpages/default.html' %}
+
+
+{% block title %}
+Search
+{% endblock %}
+
+{% block content %}
+<form method="GET">
+    {{ filter.form }}
+    <input type="submit" value="Найти">
+
+</form>
+
+<table>
+    <thead>
+        <th>
+         Дата
+        </th>
+        <th>
+         Название статьи
+        </th>
+        <th>
+         Имя пользователя автора
+        </th>
+        <th>
+         По всему
+        </th>
+    </thead>
+    {% for new in filter.qs %} <!-- поменяем products на filter.qs, т.к. теперь мы забираем уже отобранную по каким-то параметрам информацию -->
+    <tr>
+        <td>
+            {{ new.timeCreate| date:'d M Y H:m' }}
+        </td>
+        <td>
+            {{ new.heading|title }}
+        </td>
+        <td>
+            {{ new.author.user }}
+        </td>
+        <td>
+            {{ product.quantity }}
+        </td>
+    </tr>
+    {% endfor %}
+</table>
+
+{% endblock content %}
