@@ -1,9 +1,14 @@
 from django_filters import FilterSet 
-from .models import Post
- 
+from .models import Post,Author
+import io
  
 
-class ProductFilter(FilterSet):
+class PostFilter(FilterSet):
     class Meta:
         model = Post
-        fields = ('timeCreate', 'heading', 'author.user') 
+        #Filter fields
+        queryset = Post.objects.filter
+        fields = {'timeCreate': ['gt'],
+                   'heading': ['icontains'], 
+                   'author':['gt'],
+                   }

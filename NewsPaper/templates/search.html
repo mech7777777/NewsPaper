@@ -27,22 +27,35 @@ Search
          По всему
         </th>
     </thead>
-    {% for new in filter.qs %} <!-- поменяем products на filter.qs, т.к. теперь мы забираем уже отобранную по каким-то параметрам информацию -->
+    {% for news in filter.qs %} <!-- поменяем products на filter.qs, т.к. теперь мы забираем уже отобранную по каким-то параметрам информацию -->
     <tr>
         <td>
-            {{ new.timeCreate| date:'d M Y H:m' }}
+            {{ news.timeCreate| date:'d M Y H:m' }}
         </td>
         <td>
-            {{ new.heading|title }}
+            {{ news.heading|title }}
         </td>
         <td>
-            {{ new.author.user }}
+            {{ news.author.user}}
         </td>
         <td>
-            {{ product.quantity }}
+            {{ news.Post }}
         </td>
     </tr>
     {% endfor %}
 </table>
+
+<form method="POST">
+    {% csrf_token %}
+    <label for="name">Name</label>
+    <input name="name" type="text">
+    <label for="heading"> Heading</label>
+    <input name="heading" type="text">
+    <!-- Здесь будет список категорий. --> 
+    <select name="postCategory" size="4">
+        {% for category in categories %} 
+        <option value="{{ category.id }}"> {{ category.name }} </option> 
+        {% endfor %} 
+    </select> <input type="submit" value="Добавить статью"> </form>
 
 {% endblock content %}
